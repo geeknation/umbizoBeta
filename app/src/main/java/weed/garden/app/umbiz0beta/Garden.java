@@ -20,9 +20,7 @@ import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+
 
 public class Garden extends FragmentActivity implements
         LocationListener,GooglePlayServicesClient.ConnectionCallbacks,
@@ -54,6 +52,10 @@ public class Garden extends FragmentActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_garden);
 
+        Location currentLocation;
+        currentLocation = getLocation();
+        MyLocation myLocation=new MyLocation();
+        myLocation.getHumanLocation(currentLocation);
     }
 
     @Override
@@ -178,19 +180,19 @@ public class Garden extends FragmentActivity implements
         //mConnectionState.setText(R.string.location_updates_stopped);
     }
 
-    public void getLocation(View v) {
+    public Location getLocation() {
 
         // If Google Play Services is available
+        Location currentLocation = null;
         if (servicesConnected()) {
 
             // Get the current location
-            Location currentLocation = mLocationClient.getLastLocation();
+            mLocationClient.getLastLocation();
 
             MyLocation myLocation=new MyLocation();
 
-            myLocation.getHumanLocation(currentLocation);
-
         }
+        return  currentLocation;
     }
 
 
